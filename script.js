@@ -1,10 +1,4 @@
 /* ========== Theme Handling ========== */
-/*
-  Modes:
-  - "auto" (default): follow system preference
-  - "light": force light
-  - "dark":  force dark
-*/
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 
@@ -14,7 +8,6 @@ function applyTheme(mode) {
   if (mode === 'light' || mode === 'dark') {
     root.setAttribute('data-theme', mode);
   } else {
-    // auto → let prefers-color-scheme drive
     root.setAttribute('data-theme', 'auto');
   }
   if (toggle) toggle.textContent = mode[0].toUpperCase() + mode.slice(1);
@@ -32,7 +25,7 @@ if (toggle) {
   applyTheme(getStoredTheme());
 }
 
-/* ========== Example: Custom Code Mounts (placeholders) ========== */
+/* ========== Placeholders for mounts ========== */
 function mountAnimationDemo() {
   const el = document.getElementById('animationMount');
   if (!el) return;
@@ -68,47 +61,46 @@ function mountExperienceDemo() {
   `;
 }
 
-/* ========== Header text fitting (fits to 94% of container, never wraps) ========== */
+/* ========== Header text fitting (full-bleed, ~98% inner width, never wraps) ========== */
 (function fitHeader() {
   const title = document.getElementById('headerTitle');
   const header = document.getElementById('header');
   if (!title || !header) return;
 
-  // Ensure non-wrapping, intrinsic measuring
+  // Ensure intrinsic measuring
   title.style.whiteSpace = 'nowrap';
   title.style.display = 'inline-block';
   title.style.width = 'auto';
 
   function innerWidth() {
-    // Measure container inner width (content box) = clientWidth - paddings
+    // Fit to header content box (clientWidth minus paddings)
     const cs = getComputedStyle(header);
     const padL = parseFloat(cs.paddingLeft) || 0;
     const padR = parseFloat(cs.paddingRight) || 0;
-    return header.clientWidth - padL - padR; // ≈ 94% of .page width
+    return header.clientWidth - padL - padR; // ≈ 98% of viewport thanks to 1vw gutters
   }
 
   function fit() {
     const maxW = innerWidth();
     if (maxW <= 0) return;
 
-    // Start measurable
+    // Seed measurable size
     title.style.fontSize = '50px';
 
-    // Binary search accurate font-size in px
+    // Binary search precise font-size in px
     let low = 6;       // px
-    let high = 2000;   // px ceiling for very wide screens
-    for (let i = 0; i < 20; i++) {
+    let high = 2400;   // allow ultra-wide screens
+    for (let i = 0; i < 22; i++) {
       const mid = (low + high) / 2;
       title.style.fontSize = mid + 'px';
-      const w = title.scrollWidth; // true rendered width
-      if (w > maxW) high = mid;
-      else low = mid;
+      const w = title.scrollWidth;
+      if (w > maxW) high = mid; else low = mid;
     }
-    // Slightly under to avoid overflow from subpixel rounding
+    // Nudge under to avoid subpixel overflow
     title.style.fontSize = (low - 0.5) + 'px';
   }
 
-  // Refit on container resize (more robust than window resize alone)
+  // Observe the header box (handles viewport size + full-bleed changes)
   if ('ResizeObserver' in window) {
     const ro = new ResizeObserver(fit);
     ro.observe(header);
@@ -116,14 +108,14 @@ function mountExperienceDemo() {
     window.addEventListener('resize', fit, { passive: true });
   }
 
-  // Refit after font load
+  // Refit after fonts load (ensures Angkor metrics are used)
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(fit);
   } else {
     setTimeout(fit, 0);
   }
 
-  // Re-run when tab becomes visible (prevents odd first paints)
+  // Re-run after tab becomes visible
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) fit();
   });
@@ -137,4 +129,3 @@ document.addEventListener('DOMContentLoaded', () => {
   mountAnimationDemo();
   mountExperienceDemo();
 });
-
