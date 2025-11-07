@@ -22,7 +22,7 @@
   --size-2xl: 2.25rem;
 }
 
-/* Dark scheme defaults (used when prefers-color-scheme: dark AND/OR html[data-theme="dark"]) */
+/* Dark scheme */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #0b0b0c;
@@ -36,29 +36,17 @@
   }
 }
 
-/* Manual theme overrides via data attribute */
+/* Manual theme overrides */
 html[data-theme="light"] {
-  --bg: #ffffff;
-  --fg: #0b0b0c;
-  --muted: #f2f3f5;
-  --fg-muted: #5a5f66;
-  --elev: #ffffff;
-  --border: #e6e7eb;
-  --accent: #0f62fe;
-  --accent-contrast: #ffffff;
+  --bg: #ffffff; --fg: #0b0b0c; --muted: #f2f3f5; --fg-muted: #5a5f66;
+  --elev: #ffffff; --border: #e6e7eb; --accent: #0f62fe; --accent-contrast: #ffffff;
 }
 html[data-theme="dark"] {
-  --bg: #0b0b0c;
-  --fg: #f5f6f7;
-  --muted: #17181b;
-  --fg-muted: #a8adb4;
-  --elev: #121316;
-  --border: #2a2e34;
-  --accent: #8ab4ff;
-  --accent-contrast: #0b0b0c;
+  --bg: #0b0b0c; --fg: #f5f6f7; --muted: #17181b; --fg-muted: #a8adb4;
+  --elev: #121316; --border: #2a2e34; --accent: #8ab4ff; --accent-contrast: #0b0b0c;
 }
 
-/* CSS Reset (small, modern) */
+/* Reset */
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -106,14 +94,8 @@ p, h1, h2, h3, h4, h5, h6 { margin: 0; }
   font-size: clamp(1.5rem, 4.5vw, var(--size-2xl));
   font-weight: 700;
 }
-.lead {
-  font-size: clamp(1rem, 2.4vw, var(--size-lg));
-  color: var(--fg);
-}
-.body {
-  font-size: var(--size-sm);
-  color: var(--fg-muted);
-}
+.lead { font-size: clamp(1rem, 2.4vw, var(--size-lg)); color: var(--fg); }
+.body { font-size: var(--size-sm); color: var(--fg-muted); }
 
 /* Marquee */
 .section--marquee { padding: 0; }
@@ -135,10 +117,7 @@ p, h1, h2, h3, h4, h5, h6 { margin: 0; }
   color: var(--section-fg, var(--fg));
   font-size: var(--size-sm);
 }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+@keyframes marquee { from {transform: translateX(0);} to {transform: translateX(-50%);} }
 
 /* Buttons */
 .btn {
@@ -157,13 +136,9 @@ p, h1, h2, h3, h4, h5, h6 { margin: 0; }
   transition: transform .06s ease, background .2s ease, color .2s ease, border-color .2s ease;
 }
 .btn:active { transform: translateY(1px); }
-.btn--primary {
-  background: var(--accent);
-  color: var(--accent-contrast);
-  border-color: transparent;
-}
+.btn--primary { background: var(--accent); color: var(--accent-contrast); border-color: transparent; }
 .btn--primary:hover { filter: brightness(0.96); }
-.btn--ghost:hover   { background: var(--muted); }
+.btn--ghost:hover { background: var(--muted); }
 
 /* CTA Section */
 .section--cta { text-align: center; }
@@ -171,5 +146,102 @@ p, h1, h2, h3, h4, h5, h6 { margin: 0; }
 /* Grids */
 .grid { display: grid; gap: 16px; }
 .grid--apps { grid-template-columns: repeat(1, 1fr); }
-.grid--contact { gri
+.grid--contact { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+@media (min-width: 640px) {
+  .grid--apps { grid-template-columns: repeat(2, 1fr); }
+  .grid--contact { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .grid--apps { grid-template-columns: repeat(4, 1fr); }
+  .grid--contact { grid-template-columns: repeat(3, 1fr); }
+}
 
+/* App card */
+.app {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--elev);
+}
+.app img { aspect-ratio: 3 / 2; object-fit: cover; width: 100%; }
+.app figcaption { padding: 10px 12px; font-size: var(--size-sm); color: var(--fg); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 24px 0;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  position: sticky;
+  top: 12px;
+  margin-left: auto;
+  display: inline-flex;
+  padding: 8px 10px;
+  font-size: var(--size-xs);
+  border: 1px solid var(--border);
+  background: var(--elev);
+  color: var(--fg);
+  border-radius: 8px;
+}
+
+/* Custom code mount */
+.custom-mount {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  min-height: 120px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation-duration: 0.001s; }
+  .btn, .theme-toggle { transition: none; }
+}
+
+/* ======== Utilities ======== */
+/* Make a section bleed full viewport width, ignoring the .page max-width */
+.full-bleed {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0; /* so the border hits the edges cleanly */
+}
+
+/* ======== HEADER (full-width, tight padding, Angkor) ======== */
+.section--header {
+  /* remove default section padding/margins so we control spacing precisely */
+  padding: 0 !important;
+  margin-block: clamp(4px, 0.8vw, 12px);
+}
+.header-fill {
+  /* full-bleed already sets width; keep content tight */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* tiny gutters; fitter will size to inner width (≈ 98%) */
+  padding-left: 1vw;
+  padding-right: 1vw;
+  /* very small vertical padding (was too big before) */
+  padding-top: 2pt;
+  padding-bottom: 2pt;
+  /* keep the box visible; no accidental clipping */
+  overflow: visible;
+}
+
+/* Title — never wraps; JS will size it to ~98% inner width */
+.header-title {
+  font-family: "Angkor", var(--font-sans);
+  font-weight: 400;
+  display: inline-block;   /* intrinsic width for measuring */
+  white-space: nowrap;     /* never wrap */
+  word-break: keep-all;
+  overflow-wrap: normal;
+  line-height: 1;          /* vertical padding is exact */
+  letter-spacing: -0.06em; /* tighter tracking as requested */
+  margin: 0;
+  width: auto;
+  /* large fallback so it never wraps before JS fits it */
+  font-size: 20vw;
+}
