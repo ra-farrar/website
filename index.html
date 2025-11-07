@@ -1,57 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>One Page Website</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
-</head>
-<body>
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>One-Pager Starter</title>
 
-  <section class="header">
-    <h1>RYAN FARRAR</h1>
-  </section>
+    <!-- Inter Tight -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Angkor -->
+    <link href="https://fonts.googleapis.com/css2?family=Angkor&family=Inter+Tight:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-  <section class="subhead">
-    <h2>MARKETING LEADER</h2>
-    <h2>BASED IN NEW YORK CITY</h2>
-  </section>
 
-  <section class="animation">
-    <!-- Add your custom code here -->
-  </section>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Page wrapper keeps max-width and padding consistent -->
+    <div class="page">
 
-  <section class="marquee">
-    <h3>Your Tertiary Heading</h3>
-  </section>
+      <!-- Theme toggle (optional) -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        Auto
+      </button>
 
-  <section class="experience">
-    <!-- Add more custom code here -->
-  </section>
+      <!-- 1) HEADER (one-line) -->
+<header
+  id="header"
+  class="section section--header section--box header-fill"
+  style="--section-bg:var(--elev); --section-fg:var(--fg); --section-radius:12px;"
+>
+  <h1 id="headerTitle" class="header-title">RYAN FARRAR</h1>
+</header>
 
-  <section class="cta-button-1">
-    <button class="cta-style-1">Call To Action 1</button>
-  </section>
+      <!-- 2) SUBHEAD (two-line text box) -->
+      <section id="subhead" class="section section--box"
+        style="--section-bg:var(--elev); --section-fg:var(--fg); --section-radius:16px;">
+        <p class="lead">subhead line one goes here</p>
+        <p class="lead">subhead line two goes here</p>
+      </section>
 
-  <section class="images">
-    <div class="column"><img src="image1.jpg" alt="Image 1" /></div>
-    <div class="column"><img src="image2.jpg" alt="Image 2" /></div>
-    <div class="column"><img src="image3.jpg" alt="Image 3" /></div>
-    <div class="column"><img src="image4.jpg" alt="Image 4" /></div>
-  </section>
+      <!-- 3) ANIMATION (custom code mount) -->
+      <section id="animation" class="section"
+        style="--section-bg:transparent; --section-fg:var(--fg);">
+        <div class="block-title">animation</div>
+        <div id="animationMount" class="custom-mount" aria-live="polite"></div>
+      </section>
 
-  <hr class="divider-line" />
+      <!-- 4) MARQUEE (one-line) -->
+      <section id="marquee" class="section section--marquee"
+        style="--section-bg:var(--muted); --section-fg:var(--fg-muted);">
+        <div class="marquee">
+          <div class="marquee__track">
+            <span>marquee • marquee • marquee • marquee • marquee • </span>
+            <span aria-hidden="true">marquee • marquee • marquee • marquee • marquee • </span>
+          </div>
+        </div>
+      </section>
 
-  <section class="footer">
-    <p>Your body text goes here. Add as much content as you like.</p>
-  </section>
+      <!-- 5) EXPERIENCE (custom code mount) -->
+      <section id="experience" class="section"
+        style="--section-bg:transparent; --section-fg:var(--fg);">
+        <div class="block-title">experience</div>
+        <div id="experienceMount" class="custom-mount"></div>
+      </section>
 
-  <section class="contact">
-    <div class="column"><button>CTA 1</button></div>
-    <div class="column"><button>CTA 2</button></div>
-    <div class="column"><button>CTA 3</button></div>
-  </section>
+      <!-- 6) CTA (single button) -->
+      <section id="cta" class="section section--cta"
+        style="--section-bg:var(--elev); --section-fg:var(--fg); --section-radius:12px;">
+        <button class="btn btn--primary">CTA</button>
+      </section>
 
-</body>
+      <!-- 7) APPS (4-column responsive image grid) -->
+      <section id="apps" class="section"
+        style="--section-bg:transparent; --section-fg:var(--fg);">
+        <div class="block-title">apps</div>
+        <div class="grid grid--apps">
+          <!-- Replace placeholders with your images -->
+          <figure class="app">
+            <img src="https://placehold.co/600x400" alt="App 1" />
+            <figcaption>App 1</figcaption>
+          </figure>
+          <figure class="app">
+            <img src="https://placehold.co/600x400" alt="App 2" />
+            <figcaption>App 2</figcaption>
+          </figure>
+          <figure class="app">
+            <img src="https://placehold.co/600x400" alt="App 3" />
+            <figcaption>App 3</figcaption>
+          </figure>
+          <figure class="app">
+            <img src="https://placehold.co/600x400" alt="App 4" />
+            <figcaption>App 4</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 8) LINE (divider) -->
+      <div id="line" class="divider" role="separator" aria-label="Section divider"></div>
+
+      <!-- 9) FOOTER (body text field) -->
+      <footer id="footer" class="section"
+        style="--section-bg:transparent; --section-fg:var(--fg-muted);">
+        <p class="body">footer — add any longer body copy here. You can put links, small print, etc.</p>
+      </footer>
+
+      <!-- 10) CONTACT (three-column CTAs) -->
+      <section id="contact" class="section"
+        style="--section-bg:transparent; --section-fg:var(--fg);">
+        <div class="grid grid--contact">
+          <a class="btn btn--ghost" href="#" rel="noopener">Email</a>
+          <a class="btn btn--ghost" href="#" rel="noopener">LinkedIn</a>
+          <a class="btn btn--ghost" href="#" rel="noopener">X / Twitter</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+  </body>
 </html>
